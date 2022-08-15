@@ -16,5 +16,4 @@ class PlayerController:
                 if (event.key == pygame.K_s):
                     self.player.moveDown()
 
-                # print(self.player.getPosition())
                 self.player.notifyObservers()

@@ -46,6 +46,13 @@ class Vector2:
 
         return Vector2(randomX, randomY)
 
+    def normalize(self):
+        newVector = Vector2(self.x, self.y)
+
+        norm = newVector.x * newVector.x + newVector.y * newVector.y
+
+        return newVector.multiply(1 / norm)
+
     def get(self):
         return (self.x, self.y)
 

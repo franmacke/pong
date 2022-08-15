@@ -10,7 +10,7 @@ class Ball(Positionable, Observable, Sizable):
         self.position = Position(0,0)
         self.direction = self.startWithRandomDirection()
         self.observers = []
-        self.speed = 2
+        self.speed = 10
         self.size = Size(10, 10)
 
     def bounce(self):
@@ -42,10 +42,7 @@ class Ball(Positionable, Observable, Sizable):
         return self.position.getY()
 
     def startWithRandomDirection(self):
-        # randomVector = Vector2.randomVectorNoAxis() 
-        # return randomVector.multiply(self.speed)
-
-        return Vector2(1,2)
+        return Vector2(1,2).normalize().multiply(1)
 
     def addObserver(self, observer):
         self.observers.append(observer)

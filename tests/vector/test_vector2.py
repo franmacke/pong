@@ -30,3 +30,10 @@ class TestVector2(unittest.TestCase):
         assertVector = Vector2(2,0)
 
         self.assertEqual(vector.multiply(2), assertVector)
+
+    def test_normalizeVector(self):
+        vector = Vector2(2,2)
+
+        assertVector = Vector2(1 / 4, 1 / 4)
+
+        self.assertEqual(vector.normalize(), assertVector)

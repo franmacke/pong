@@ -22,7 +22,7 @@ class Player(Positionable, Observable, Sizable):
         self.position = position
 
     def setSpeed(self, speed):
-        self.setSpeed = speed
+        self.speed = speed
 
     def getPosition(self):
         return self.position

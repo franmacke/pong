@@ -15,6 +15,7 @@ class Game:
         self.ball.move()
         self.detectBallCollisions()
         self.detectMaxScreenCollision()
+        self.detectScore()
 
     def getPlayers(self):
         return self.players
@@ -60,7 +61,8 @@ class Game:
                 object.outOfBounds()
 
     def detectScore(self):
-        pass
-        # for object in self.gameObjects:
-        #     if object.getY() >= self.maxWidth or object.getY() <= 0:
-        #         object.score()
+        if self.ball.getX() < 0:
+            print("Punto para jugador 2")
+
+        if self.ball.getX() > self.maxWidth:
+            print("Punto para jugador 1")
