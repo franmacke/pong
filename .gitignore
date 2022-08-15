@@ -1,0 +1,7 @@
+.vscode/
+
+myenv/
+
+pong.egg-info/
+
+__pycache__/
