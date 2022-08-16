@@ -11,7 +11,33 @@ class Game:
         self.maxWidth = 600
         self.maxHeight = 600
 
-    def startGame(self):
+    def resetPosition(self):
+        playerOne = self.getPlayer(1)
+        playerOne.setPosition(Position(0, 300))
+        
+        playerTwo = self.getPlayer(2)
+        playerTwo.setPosition(Position(590, 300))
+
+        self.ball.setPosition(Position(300, 300))
+
+        for object in self.gameObjects:
+            object.notifyObservers()
+
+    def initialize(self):
+        playerOne = Player()
+        playerOne.setPosition(Position(0, 300))
+
+        playerTwo = Player()
+        playerTwo.setPosition(Position(590, 300))
+
+        ball = Ball()
+        ball.setPosition(Position(300, 300))
+
+        self.addPlayer(playerOne)
+        self.addPlayer(playerTwo)
+        self.addBall(ball)
+
+    def update(self):
         self.ball.move()
         self.detectBallCollisions()
         self.detectMaxScreenCollision()
@@ -19,6 +45,9 @@ class Game:
 
     def getPlayers(self):
         return self.players
+
+    def getPlayer(self, number):
+        return self.players[number - 1]
 
     def getBall(self):
         return self.ball
@@ -60,9 +89,12 @@ class Game:
             if object.getY() >= self.maxHeight or object.getY() <= 0:
                 object.outOfBounds()
 
+
     def detectScore(self):
         if self.ball.getX() < 0:
+            self.resetPosition()
             print("Punto para jugador 2")
 
         if self.ball.getX() > self.maxWidth:
+            self.resetPosition()
             print("Punto para jugador 1")

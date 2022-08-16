@@ -9,3 +9,5 @@ class Size:
 
     def getHeight(self):
         return self.height
+
+    
