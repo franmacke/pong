@@ -1,10 +1,14 @@
 import pygame
+from .view.scenes.GameScene import GameScene
 from src.view.scenes.MainMenuScene import MainMenuScene
+from src.view.scenes.PauseScene import PauseScene
+from src.view.scenes.OptionsScene import OptionScene
 
 class Application:
     def __init__(self) -> None:
         self.running = True
         self.scene = None
+        self.saveScene = None
         self.display = pygame.display.set_mode((600,600))
         self.clock = pygame.time.Clock()
 
@@ -31,6 +35,23 @@ class Application:
 
     def changeScene(self, newScene):
         self.scene = newScene
+
+    def startNewGame(self):
+        self.changeScene(GameScene(self))
+
+    def pause(self):
+        self.saveScene = self.scene
+        pauseScene = PauseScene(self)
+        pauseScene.savePreviusScene(self.scene)
+        self.changeScene(pauseScene)
+
+    def options(self):
+        optionScene = OptionScene(self)
+        optionScene.savePreviusScene(self.scene)
+        self.changeScene(OptionScene(self))
+
+    def play(self):
+        self.changeScene(self.saveScene)
 
     def quit(self):
         self.running = False

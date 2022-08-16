@@ -9,7 +9,6 @@ class KeyboardController:
             if (event.type == pygame.QUIT):
                 self.app.quit()
 
-
             if (event.type == pygame.KEYDOWN):
                 if (event.key == pygame.K_ESCAPE):
                     self.app.pause()

@@ -10,7 +10,7 @@ class Player(Positionable, Observable, Sizable):
         self.speed = 15
         self.position = Position(0,0)
         self.observers = []
-        self.size = Size(10, 30)
+        self.size = Size(10, 50)
 
     def getHeight(self):
         return self.size.getHeight()
@@ -23,6 +23,9 @@ class Player(Positionable, Observable, Sizable):
 
     def setSpeed(self, speed):
         self.speed = speed
+
+    def getSize(self):
+        return self.size
 
     def getPosition(self):
         return self.position
@@ -44,7 +47,7 @@ class Player(Positionable, Observable, Sizable):
 
     def notifyObservers(self):
         for observer in self.observers:
-            observer.update(self.position)
+            observer.update(self)
     
     def outOfBounds(self):
         pass

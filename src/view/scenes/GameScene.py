@@ -51,8 +51,8 @@ class GameScene(Scene):
         self.controllers.append(playerOneController)
         self.controllers.append(playerTwoController)
 
-        playerOneView = PlayerView(playerOne.getPosition(), playerOneController)
-        playerTwoView = PlayerView(playerTwo.getPosition(), playerTwoController)
+        playerOneView = PlayerView(playerOne, playerOneController)
+        playerTwoView = PlayerView(playerTwo, playerTwoController)
         ballView = BallView(ball.getPosition())
 
         playerOne.addObserver(playerOneView)
