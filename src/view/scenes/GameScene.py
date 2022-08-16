@@ -2,6 +2,7 @@ from src.controller.KeyboardController import KeyboardController
 from src.controller.SecondPlayerController import SecondPlayerController
 from src.controller.PlayerController import PlayerController
 from src.model.game.Game import Game
+from src.view.views.ScoreView import ScoreView
 from src.view.views.BallView import BallView
 from src.view.views.PlayerView import PlayerView
 from src.view.scenes.Scene import Scene
@@ -11,6 +12,7 @@ class GameScene(Scene):
         super().__init__(app)
         self.playersViews = []
         self.ballView = None
+        self.scoreView = None
         self.views = []
         self.controllers = []
         self.game = None
@@ -44,6 +46,7 @@ class GameScene(Scene):
         playerOne = self.game.getPlayer(0)
         playerTwo = self.game.getPlayer(1)
         ball = self.game.getBall()
+        score = self.game.getScoreManager()
 
         playerOneController = PlayerController(playerOne)
         playerTwoController = SecondPlayerController(playerTwo)
@@ -54,14 +57,17 @@ class GameScene(Scene):
         playerOneView = PlayerView(playerOne, playerOneController)
         playerTwoView = PlayerView(playerTwo, playerTwoController)
         ballView = BallView(ball.getPosition())
+        scoreView = ScoreView(score.getScoreList())
 
         playerOne.addObserver(playerOneView)
         playerTwo.addObserver(playerTwoView)
         ball.addObserver(ballView)
+        score.addObserver(scoreView)
 
         self.addPlayerView(playerTwoView)
         self.addPlayerView(playerOneView)
         self.addBallView(ballView)
+        self.addScoreView(scoreView)
     
     def addPlayerView(self, playerView):
         self.playersViews.append(playerView)
@@ -70,3 +76,7 @@ class GameScene(Scene):
     def addBallView(self, ballView):
         self.ballView = ballView
         self.views.append(ballView)
+
+    def addScoreView(self, scoreView):
+        self.playersViews.append(scoreView)
+        self.views.append(scoreView)

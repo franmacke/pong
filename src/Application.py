@@ -1,4 +1,7 @@
-import pygame
+import pygame, os
+from pathlib import Path
+
+
 from .view.scenes.GameScene import GameScene
 from src.view.scenes.MainMenuScene import MainMenuScene
 from src.view.scenes.PauseScene import PauseScene

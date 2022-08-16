@@ -10,4 +10,6 @@ class Size:
     def getHeight(self):
         return self.height
 
+    def changeSize(self, value):
+        self.height = self.height * value
     

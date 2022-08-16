@@ -1,12 +1,16 @@
 
+from tkinter.messagebox import RETRY
+from src.model import score
 from src.model.player.Player import Player
 from src.model.ball.Ball import Ball
 from src.model.position.Position import Position
+from src.model.score.Score import Score
 
 class Game:
     def __init__(self) -> None:
         self.players = []
         self.ball = None
+        self.scoreManager = None
         self.gameObjects = []
         self.maxWidth = 600
         self.maxHeight = 600
@@ -26,16 +30,20 @@ class Game:
     def initialize(self):
         playerOne = Player()
         playerOne.setPosition(Position(0, 300))
+        playerOne.setId(1)
+        self.addPlayer(playerOne)
 
         playerTwo = Player()
         playerTwo.setPosition(Position(590, 300))
+        playerTwo.setId(2)
+        self.addPlayer(playerTwo)
 
         ball = Ball()
         ball.setPosition(Position(300, 300))
-
-        self.addPlayer(playerOne)
-        self.addPlayer(playerTwo)
         self.addBall(ball)
+
+        score = Score(self.players)
+        self.addScoreManager(score)
 
     def update(self):
         self.ball.move()
@@ -52,6 +60,9 @@ class Game:
     def getBall(self):
         return self.ball
 
+    def getScoreManager(self):
+        return self.scoreManager
+
     def addPlayer(self, player):
         self.players.append(player)
         self.addGameObject(player)
@@ -59,6 +70,9 @@ class Game:
     def addBall(self, ball):
         self.ball = ball
         self.addGameObject(ball)
+
+    def addScoreManager(self, scoreManager):
+        self.scoreManager = scoreManager
 
     def addGameObject(self, object):
         self.gameObjects.append(object)
@@ -94,7 +108,9 @@ class Game:
         if self.ball.getX() < 0:
             self.resetPosition()
             print("Punto para jugador 2")
+            self.scoreManager.score(self.getPlayer(2))
 
         if self.ball.getX() > self.maxWidth:
             self.resetPosition()
             print("Punto para jugador 1")
+            self.scoreManager.score(self.getPlayer(1))

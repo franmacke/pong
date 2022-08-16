@@ -7,10 +7,21 @@ from src.model.size.Size import Size
 
 class Player(Positionable, Observable, Sizable):
     def __init__(self) -> None:
+        self.id = None
         self.speed = 15
         self.position = Position(0,0)
         self.observers = []
         self.size = Size(10, 50)
+        self.score = 1
+
+    def scoreGoal(self):
+        return self.score
+
+    def changeSpeed(self, value):
+        self.speed = self.speed * value
+
+    def changeSize(self, value):
+        self.size.changeSize(value)
 
     def getHeight(self):
         return self.size.getHeight()
@@ -20,6 +31,9 @@ class Player(Positionable, Observable, Sizable):
 
     def setPosition(self, position):
         self.position = position
+
+    def setId(self, id):
+        self.id = id
 
     def setSpeed(self, speed):
         self.speed = speed
