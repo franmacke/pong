@@ -13,7 +13,7 @@ class Player(Positionable, Observable, Sizable, Collider):
         self.speed = 15
         self.position = Position(0,0)
         self.observers = []
-        self.size = Size(50, 100)
+        self.size = Size(10, 100)
         self.score = 1
         self.collider = BoxCollider(self)
 

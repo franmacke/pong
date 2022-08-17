@@ -15,11 +15,10 @@ class OptionScene(Scene):
         self.app.fill((0,0,0))
 
         backButton = thorpy.make_button("Volver", func=lambda: self.backToPauseScene())
-        quitButton = thorpy.make_button("Salir", func=thorpy.functions.quit_func)
 
         background = thorpy.Background(
-            color=(220,220,200),
-            elements=[backButton, quitButton]
+            color=(0,0,0),
+            elements=[backButton]
         )
 
         thorpy.store(background)

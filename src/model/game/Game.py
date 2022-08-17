@@ -49,10 +49,11 @@ class Game:
         self.addScoreManager(score)
 
     def update(self):
-        self.detectCollisions()
-        self.detectMaxScreenCollision()
-        self.detectScore()
-        self.ball.move()
+        if (not self.detectWinner()):
+            self.detectCollisions()
+            self.detectMaxScreenCollision()
+            self.detectScore()
+            self.ball.move()
 
     def getPlayers(self):
         return self.players
@@ -97,12 +98,18 @@ class Game:
         if self.ball.getX() < 0:
             self.scoreManager.score(self.getPlayer(2))
             self.resetPosition()
+            return True
             print("Punto para jugador 2")
 
         if self.ball.getX() > self.maxWidth:
             self.scoreManager.score(self.getPlayer(1))
             self.resetPosition()
+            return True
             print("Punto para jugador 1")
+
+    def detectWinner(self):
+        return self.scoreManager.getWinner()
+
 
 
     # def isColliding(self, firstObject, secondObject):

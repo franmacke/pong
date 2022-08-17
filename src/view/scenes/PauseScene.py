@@ -16,7 +16,7 @@ class PauseScene(Scene):
         quitButton = thorpy.make_button("Salir del juego", func=thorpy.functions.quit_func)
 
         background = thorpy.Background(
-            color=(220,220,200),
+            color=(0,0,0),
             elements=[playButton, restartButton, optionsButton, quitButton]
         )
 

@@ -2,6 +2,8 @@ from src.controller.KeyboardController import KeyboardController
 from src.controller.SecondPlayerController import SecondPlayerController
 from src.controller.PlayerController import PlayerController
 from src.model.game.Game import Game
+from .GoalScene import GoalScene
+from .WinnerScene import WinnerScene
 from src.view.views.ScoreView import ScoreView
 from src.view.views.BallView import BallView
 from src.view.views.PlayerView import PlayerView
@@ -32,12 +34,19 @@ class GameScene(Scene):
         self.app.update()
 
     def render(self, screen):
-        self.app.fill((0,0,0))
+        if not self.game.detectWinner():
+            if not self.game.detectScore():
+                self.app.fill((0,0,0))
 
-        for player in self.playersViews:
-            player.draw(screen)
+                for player in self.playersViews:
+                    player.draw(screen)
 
-        self.ballView.draw(screen)
+                self.ballView.draw(screen)
+            else:
+                self.app.saveCurrentScene()
+                self.app.changeScene(GoalScene(self.app))
+        else:
+            self.app.changeScene(WinnerScene(self.app, self.game.detectWinner()))
 
     def setup(self):
         self.game = Game()

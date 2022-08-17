@@ -43,9 +43,8 @@ class Application:
         self.changeScene(GameScene(self))
 
     def pause(self):
-        self.saveScene = self.scene
+        self.saveCurrentScene()
         pauseScene = PauseScene(self)
-        pauseScene.savePreviusScene(self.scene)
         self.changeScene(pauseScene)
 
     def options(self):
@@ -55,6 +54,12 @@ class Application:
     
     def restart(self):
         self.changeScene(GameScene(self))
+
+    def saveCurrentScene(self):
+        self.saveScene = self.scene
+    
+    def loadSavedScene(self):
+        self.scene = self.saveScene
 
     def play(self):
         self.changeScene(self.saveScene)

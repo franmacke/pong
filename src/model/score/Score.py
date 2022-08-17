@@ -5,6 +5,7 @@ class Score(Observable):
         self.playerList = playerList
         self.dictScore = self.initScore()
         self.observers = []
+        self.maxScore = 2
 
     def initScore(self) -> dict:
         dict = {}
@@ -29,3 +30,9 @@ class Score(Observable):
     def notifyObservers(self):
         for observer in self.observers:
             observer.update(self.getScoreList())
+
+    def getWinner(self):
+        for key in self.dictScore:
+            if self.dictScore.get(key) == self.maxScore:
+                return key
+        return None

@@ -1,7 +1,7 @@
 import thorpy, pygame
 
 from src.view.scenes.Scene import Scene
-from src.view.scenes.GameScene import GameScene
+from src.utils.PathManager import PathManager
 
 class MainMenuScene(Scene):
     def __init__(self, app) -> None:
@@ -15,11 +15,15 @@ class MainMenuScene(Scene):
     def render(self, screen):
         self.app.fill((0,0,0))
 
+        font = pygame.font.Font(PathManager.loadFont("outline"), 10)
+
+        title = font.render("P O N G", True, (255,255,255))
+
         playButton = thorpy.make_button("Jugar", func=lambda: self.startNewGame())
         quitButton = thorpy.make_button("Salir", func=thorpy.functions.quit_func)
 
         background = thorpy.Background(
-            color=(220,220,200),
+            color=(0,0,0),
             elements=[playButton, quitButton]
         )
 
