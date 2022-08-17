@@ -2,8 +2,8 @@ from src.controller.KeyboardController import KeyboardController
 from src.controller.SecondPlayerController import SecondPlayerController
 from src.controller.PlayerController import PlayerController
 from src.model.game.Game import Game
-from .GoalScene import GoalScene
-from .WinnerScene import WinnerScene
+from src.view.scenes.GoalScene import GoalScene
+from src.view.scenes.WinnerScene import WinnerScene
 from src.view.views.ScoreView import ScoreView
 from src.view.views.BallView import BallView
 from src.view.views.PlayerView import PlayerView

@@ -1,5 +1,4 @@
 
-from tkinter.messagebox import RETRY
 from src.model import score
 from src.model.player.Player import Player
 from src.model.ball.Ball import Ball
@@ -83,11 +82,9 @@ class Game:
 
     def detectCollisions(self):
         for object in self.gameObjects:
-            for otherObject in self.gameObjects:
-                if object == otherObject:
-                    break
-                object.onCollision(otherObject)
-        # print("loop")
+            if object == self.ball: break
+            
+            self.ball.onCollision(object)
 
     def detectMaxScreenCollision(self):
         for object in self.gameObjects:

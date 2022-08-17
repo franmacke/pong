@@ -5,3 +5,9 @@ myenv/
 pong.egg-info/
 
 __pycache__/
+
+build/
+
+dist/
+
+*.spec
