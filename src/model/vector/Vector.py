@@ -54,7 +54,7 @@ class Vector2:
         return newVector.multiply(1 / norm)
 
     def get(self):
-        return (self.x, self.y)
+        return self
 
     def getX(self):
         return self.x

@@ -11,12 +11,13 @@ class PauseScene(Scene):
         self.app.fill((0,0,0))
 
         playButton = thorpy.make_button("Reanudar", func=lambda: self.play())
+        restartButton = thorpy.make_button("Reiniciar", func=lambda: self.restart())
         optionsButton = thorpy.make_button("Opciones", func=lambda: self.options())
         quitButton = thorpy.make_button("Salir del juego", func=thorpy.functions.quit_func)
 
         background = thorpy.Background(
             color=(220,220,200),
-            elements=[playButton, optionsButton, quitButton]
+            elements=[playButton, restartButton, optionsButton, quitButton]
         )
 
         thorpy.store(background)
@@ -27,6 +28,10 @@ class PauseScene(Scene):
     def options(self):
         self.menu.set_leave()
         self.app.options()
+
+    def restart(self):
+        self.menu.set_leave()
+        self.app.restart()
 
     def update(self):
         pass

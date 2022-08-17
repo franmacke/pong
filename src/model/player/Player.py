@@ -1,18 +1,37 @@
 
+from src.model.collider.BoxCollider import BoxCollider
+from src.model.collider.Collider import Collider
 from src.model.observer.Observable import Observable
 from src.model.position.Position import Position
 from src.model.positionable.Positionable import Positionable
 from src.model.sizable.Sizable import Sizable
 from src.model.size.Size import Size
 
-class Player(Positionable, Observable, Sizable):
+class Player(Positionable, Observable, Sizable, Collider):
     def __init__(self) -> None:
         self.id = None
         self.speed = 15
         self.position = Position(0,0)
         self.observers = []
-        self.size = Size(10, 50)
+        self.size = Size(50, 100)
         self.score = 1
+        self.collider = BoxCollider(self)
+
+    def outOfBounds(self):
+        pass
+
+    def reset(self):
+        self.position = Position(0,0)
+        self.collider = BoxCollider(self)
+
+    def horizontalBounce(self):
+        pass
+
+    def verticalBounce(self):
+        pass
+
+    def onCollision(self, objectCollided):
+        self.collider.onBoxCollision(objectCollided)
 
     def scoreGoal(self):
         return self.score
@@ -28,6 +47,9 @@ class Player(Positionable, Observable, Sizable):
 
     def getWidth(self):
         return self.size.getWidth()
+
+    def getCenter(self):
+        return self.position.get().add(self.size.getCenter())
 
     def setPosition(self, position):
         self.position = position
@@ -62,6 +84,5 @@ class Player(Positionable, Observable, Sizable):
     def notifyObservers(self):
         for observer in self.observers:
             observer.update(self)
+
     
-    def outOfBounds(self):
-        pass

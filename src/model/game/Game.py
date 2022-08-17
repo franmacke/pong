@@ -17,13 +17,16 @@ class Game:
 
     def resetPosition(self):
         playerOne = self.getPlayer(1)
+        playerOne.reset()
         playerOne.setPosition(Position(0, 300))
         
         playerTwo = self.getPlayer(2)
-        playerTwo.setPosition(Position(590, 300))
+        playerTwo.reset()
+        playerTwo.setPosition(Position(600 - playerTwo.getWidth(), 300))
 
+        self.ball.reset()
         self.ball.setPosition(Position(300, 300))
-
+        
         for object in self.gameObjects:
             object.notifyObservers()
 
@@ -34,7 +37,7 @@ class Game:
         self.addPlayer(playerOne)
 
         playerTwo = Player()
-        playerTwo.setPosition(Position(590, 300))
+        playerTwo.setPosition(Position(600 - playerTwo.getWidth(), 300))
         playerTwo.setId(2)
         self.addPlayer(playerTwo)
 
@@ -46,10 +49,10 @@ class Game:
         self.addScoreManager(score)
 
     def update(self):
-        self.ball.move()
-        self.detectBallCollisions()
+        self.detectCollisions()
         self.detectMaxScreenCollision()
         self.detectScore()
+        self.ball.move()
 
     def getPlayers(self):
         return self.players
@@ -77,40 +80,41 @@ class Game:
     def addGameObject(self, object):
         self.gameObjects.append(object)
 
-    def detectBallCollisions(self):    
-        for player in self.players:
-            if self.isColliding(player, self.ball):
-                self.ball.oppositeBounce()
-
-
-    def isColliding(self, firstObject, secondObject):
-        collisionX = (
-            firstObject.getX() + firstObject.getWidth() >= secondObject.getX() and
-            secondObject.getX() + secondObject.getWidth() >= firstObject.getX()
-        )
-
-        collisionY = (
-            firstObject.getY() + firstObject.getHeight() >= secondObject.getY() and
-            secondObject.getY() + secondObject.getHeight() >= firstObject.getY()
-        )
-
-        collision = collisionX and collisionY
-        return collision
-
+    def detectCollisions(self):
+        for object in self.gameObjects:
+            for otherObject in self.gameObjects:
+                if object == otherObject:
+                    break
+                object.onCollision(otherObject)
+        # print("loop")
 
     def detectMaxScreenCollision(self):
         for object in self.gameObjects:
             if object.getY() >= self.maxHeight or object.getY() <= 0:
                 object.outOfBounds()
 
-
     def detectScore(self):
         if self.ball.getX() < 0:
+            self.scoreManager.score(self.getPlayer(2))
             self.resetPosition()
             print("Punto para jugador 2")
-            self.scoreManager.score(self.getPlayer(2))
 
         if self.ball.getX() > self.maxWidth:
+            self.scoreManager.score(self.getPlayer(1))
             self.resetPosition()
             print("Punto para jugador 1")
-            self.scoreManager.score(self.getPlayer(1))
+
+
+    # def isColliding(self, firstObject, secondObject):
+    #     collisionX = (
+    #         firstObject.getX() + firstObject.getWidth() >= secondObject.getX() and
+    #         secondObject.getX() + secondObject.getWidth() >= firstObject.getX()
+    #     )
+
+    #     collisionY = (
+    #         firstObject.getY() + firstObject.getHeight() >= secondObject.getY() and
+    #         secondObject.getY() + secondObject.getHeight() >= firstObject.getY()
+    #     )
+
+    #     collision = collisionX and collisionY
+    #     return collision

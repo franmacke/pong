@@ -52,6 +52,9 @@ class Application:
         optionScene = OptionScene(self)
         optionScene.savePreviusScene(self.scene)
         self.changeScene(OptionScene(self))
+    
+    def restart(self):
+        self.changeScene(GameScene(self))
 
     def play(self):
         self.changeScene(self.saveScene)
