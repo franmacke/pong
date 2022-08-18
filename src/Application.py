@@ -18,6 +18,7 @@ class Application:
     def initalize(self):
         pygame.init()
         pygame.font.init()
+        pygame.mixer.init()
 
     def run(self):
         self.initalize()
@@ -50,7 +51,7 @@ class Application:
     def options(self):
         optionScene = OptionScene(self)
         optionScene.savePreviusScene(self.scene)
-        self.changeScene(OptionScene(self))
+        self.changeScene(optionScene)
     
     def restart(self):
         self.changeScene(GameScene(self))
@@ -69,6 +70,9 @@ class Application:
 
     def quit(self):
         self.running = False
+        pygame.font.quit()
+        pygame.mixer.quit()
+        pygame.quit()
 
     def fill(self, backgroud):
         self.display.fill(backgroud)

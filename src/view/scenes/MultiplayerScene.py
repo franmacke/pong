@@ -1,5 +1,6 @@
 
-from src.model.game.Game import Game
+import socket
+from src.view.scenes.MainMenuScene import MainMenuScene
 from src.view.scenes.Scene import Scene
 from src.multiplayer.Network import Network
 from src.view.views.MultiPlayerView import MultiPlayerView
@@ -7,6 +8,10 @@ from src.view.views.BallView import BallView
 from src.controller.PlayerController import PlayerController
 from src.view.views.ScoreView import ScoreView
 
+DATA_PLAYER = 0
+DATA_PLAYER_OPPONENT = 1
+DATA_BALL = 2
+DATA_SCORE = 3
 
 class MultiplayerScene(Scene):
     def __init__(self, app) -> None:
@@ -16,25 +21,36 @@ class MultiplayerScene(Scene):
         self.playerTwo = None
         self.ball = None
         self.views = []
+        self.score = None
+        self.initialized = False
 
         self.setup()
 
     def setup(self):
-        firstData = self.network.getConnection()
-        self.playerOne = firstData[0]
-        self.playerTwo = firstData[1]
-        self.ball = firstData[2]
+        try:
+            firstData = self.network.getConnection()
 
-        self.generatePlayerView(self.playerOne)
-        self.generatePlayerView(self.playerTwo)
-        self.generateBallView(self.ball)
+            self.playerOne = firstData[DATA_PLAYER]
+            self.playerTwo = firstData[DATA_PLAYER_OPPONENT]
+            self.ball = firstData[DATA_BALL]
+            self.score = firstData[DATA_SCORE]
+
+            self.generatePlayerView(self.playerOne)
+            self.generatePlayerView(self.playerTwo)
+            self.generateBallView(self.ball)
+            self.generateScoreView(self.score)
+        except socket.error as error:
+            print("Server unavailable")
+            self.initialized = False
+            self.app.changeScene(MainMenuScene(self.app))
 
     def update(self):
         data = self.network.send(self.playerOne)
 
-        self.updateView(self.playerOne, data[0])
-        self.updateView(self.playerTwo, data[1])
-        self.updateView(self.ball, data[2])
+        self.updateView(self.playerOne, data[DATA_PLAYER])
+        self.updateView(self.playerTwo, data[DATA_PLAYER_OPPONENT])
+        self.updateView(self.ball, data[DATA_BALL])
+        self.updateScoreView(data[DATA_SCORE])
 
         self.app.update()
 
@@ -61,6 +77,17 @@ class MultiplayerScene(Scene):
         ball.addObserver(view)
         self.addView(view)
 
+    def generateScoreView(self, score):
+        view = ScoreView(score.getScoreList())
+        score.addObserver(view)
+        self.addView(view)
+
     def updateView(self, object, newObject):
         object.setPosition(newObject.getPosition())
         object.notifyObservers()
+
+    def updateScoreView(self, newScore):
+        self.score.setScore(newScore.getScoreList())
+        self.score.notifyObservers()
+
+    

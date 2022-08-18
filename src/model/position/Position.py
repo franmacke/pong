@@ -30,7 +30,7 @@ class Position:
         if (type(position) is not self.__class__):
             return False
 
-        if (self.position == position.position):
+        if (self.getX() == position.getX() and self.getY() == self.getY()):
             return True
 
         return False

@@ -1,7 +1,10 @@
+import pygame
+
 from src.controller.KeyboardController import KeyboardController
 from src.controller.SecondPlayerController import SecondPlayerController
 from src.controller.PlayerController import PlayerController
 from src.model.game.Game import Game
+from src.utils.PathManager import PathManager
 from src.view.scenes.GoalScene import GoalScene
 from src.view.scenes.WinnerScene import WinnerScene
 from src.view.views.ScoreView import ScoreView
@@ -19,7 +22,16 @@ class GameScene(Scene):
         self.controllers = []
         self.game = None
 
+        self.gameSound = pygame.mixer.Sound(PathManager.loadSound("match"))
+        # self.gameBackground = self.loadBackground()
+   
+        self.gameSound.play()
+        self.gameSound.set_volume(0.2)
         self.setup()
+
+    def loadBackground(self):
+        img = pygame.image.load(PathManager.loadBackground("match-background"))
+        return pygame.transform.scale(img, (600, 600))
 
     def processInput(self, events, keyPressed):
         keyboardController = KeyboardController(self.app)
@@ -34,8 +46,10 @@ class GameScene(Scene):
         self.app.update()
 
     def render(self, screen):
+
         if not self.game.detectWinner():
             if not self.game.detectScore():
+                # screen.blit(self.gameBackground, (0,0))
                 self.app.fill((0,0,0))
 
                 for player in self.playersViews:
@@ -65,7 +79,7 @@ class GameScene(Scene):
 
         playerOneView = PlayerView(playerOne, playerOneController)
         playerTwoView = PlayerView(playerTwo, playerTwoController)
-        ballView = BallView(ball.getPosition())
+        ballView = BallView(ball)
         scoreView = ScoreView(score.getScoreList())
 
         playerOne.addObserver(playerOneView)
@@ -77,7 +91,7 @@ class GameScene(Scene):
         self.addPlayerView(playerOneView)
         self.addBallView(ballView)
         self.addScoreView(scoreView)
-    
+
     def addPlayerView(self, playerView):
         self.playersViews.append(playerView)
         self.views.append(playerView)

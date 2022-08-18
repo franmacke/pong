@@ -9,6 +9,12 @@ class GoalScene(Scene):
         self.animationPosition = 600
         self.animationSpeed = 5
         self.reachedTop = False
+        self.goalSound = pygame.mixer.Sound(PathManager.loadSound("goal"))
+        self.cheeringSound = pygame.mixer.Sound(PathManager.loadSound("cheering"))
+        self.goalSound.play()
+        self.goalSound.set_volume(0.2)
+        self.cheeringSound.play()
+        self.cheeringSound.set_volume(0.2)
 
     def update(self):
         self.app.update()

@@ -14,11 +14,14 @@ class OptionScene(Scene):
     def render(self, screen):
         self.app.fill((0,0,0))
 
-        backButton = thorpy.make_button("Volver", func=lambda: self.backToPauseScene())
+        
+        musicSlider = thorpy.SliderX(100, limvals=(0, 1), text="Music", initial_value=0.5, type_=float)
+
+        backButton = thorpy.make_button("Volver", func=lambda: self.goBack())
 
         background = thorpy.Background(
             color=(0,0,0),
-            elements=[backButton]
+            elements=[musicSlider, backButton]
         )
 
         thorpy.store(background)
@@ -29,6 +32,6 @@ class OptionScene(Scene):
     def processInput(self, events, keyPressed):
         pass
 
-    def backToPauseScene(self):
+    def goBack(self):
         self.menu.set_leave()
-        self.app.changeScene(PauseScene(self.app))
+        self.goToPrevScene()

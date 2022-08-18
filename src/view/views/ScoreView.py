@@ -7,24 +7,23 @@ from src.utils.PathManager import PathManager
 class ScoreView(Observer, Drawable):
     def __init__(self, scoreManager) -> None:
         self.score = scoreManager
-        self.fadeAnimation = 0
 
     def draw(self, screen):
-        font = pygame.font.Font(PathManager.loadFont("outline"), 30)
+        font = pygame.font.Font(PathManager.loadFont("outline"), 20)
 
-        leftSideScore = font.render("Player 1", False, (255,255,255, self.fadeAnimation))
-        rightSideScore = font.render("Player 2", False, (255,255,255,self.fadeAnimation))
+        leftSideScore = font.render("Player 1", False, (255,255,255))
+        rightSideScore = font.render("Player 2", False, (255,255,255))
 
         firstScore = font.render(str(self.score.get(1)), False, (255,255,255))
         secondScore = font.render(str(self.score.get(2)), False, (255,255,255))
 
-        screen.blit(leftSideScore, (10,30))
-        screen.blit(rightSideScore, (350,30))
+        screen.blit(leftSideScore, (10,10))
+        screen.blit(rightSideScore, (430,10))
 
-        screen.blit(firstScore, (10,70))
-        screen.blit(secondScore, (560,70))
+        screen.blit(firstScore, (10,50))
+        screen.blit(secondScore, (570,50))
 
-    
+
 
     def update(self, score):
-        self.scoreManager = score
+        self.score = score

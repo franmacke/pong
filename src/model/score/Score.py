@@ -21,6 +21,9 @@ class Score(Observable):
         )
         self.notifyObservers()
 
+    def setScore(self, newScore):
+        self.dictScore = newScore
+
     def addObserver(self, observer):
         self.observers.append(observer)
 

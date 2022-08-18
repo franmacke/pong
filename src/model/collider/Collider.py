@@ -5,6 +5,10 @@ from abc import abstractmethod
 class Collider:
     def __init__(self, object) -> None:
         self.object = object
+        self.collision = False
+
+    def isColliding(self):
+        return self.collision
         
     def checkCollision(self, objectCollided):
         if (self.object.getX() + self.object.getWidth() <= objectCollided.getX() or
@@ -12,14 +16,17 @@ class Collider:
             self.object.getY() + self.object.getHeight() <= objectCollided.getY() or
             objectCollided.getY() + objectCollided.getHeight() <= self.object.getY()
         ):
+            self.collision = False
             return False
 
+        self.collision = True
         print("Collision")
         return True
 
     def onBoxCollision(self, objectCollided):
         if self.checkCollision(objectCollided):
             objectCollided.onCollision(self.object)
+            self.collision = True
 
     def reactToCollision(self, objectCollided):
         leftCollision = self.object.getX() + self.object.getWidth() - objectCollided.getX()

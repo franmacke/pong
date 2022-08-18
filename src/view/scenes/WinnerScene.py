@@ -17,6 +17,7 @@ class WinnerScene(Scene):
         font = pygame.font.Font(PathManager.loadFont("outline"), 30)
 
         winnerText = font.render(f"{self.winner} won! ", False, (255,255,255))
+       
 
         screen.blit(winnerText, (200, 300))
 
@@ -24,3 +25,4 @@ class WinnerScene(Scene):
         for event in events:
             if (event.type == pygame.KEYDOWN):
                 self.app.changeScene(MainMenuScene(self.app))
+                pygame.mixer.stop()

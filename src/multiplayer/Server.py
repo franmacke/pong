@@ -40,7 +40,7 @@ class Server:
         except socket.error as error:
             print(str(error))
 
-    def threadedClient(self, connection, playerNumber):
+    def sendGameData(self, playerNumber):
         playerRequesting = self.game.getPlayer(playerNumber)
         playerOpponent = None
         ball = self.game.getBall()
@@ -50,24 +50,25 @@ class Server:
         else:
             playerOpponent = self.game.getPlayer(1)
 
-        connection.send(pickle.dumps([playerRequesting, playerOpponent, ball]))
+        score = self.game.getScoreManager()
+
+        return pickle.dumps([playerRequesting, playerOpponent, ball, score])
+
+    def threadedClient(self, connection, playerNumber):
+        # Conexion inicial
+        connection.send(self.sendGameData(playerNumber))
 
         while True:
             try:
                 playerData = pickle.loads(connection.recv(MAX_BYTES * 10000))
                 player = self.game.getPlayer(playerNumber)
                 player.setPosition(playerData.getPosition())
-                opponent = None
 
                 if not playerData:
                     print("Disconnected")
                     break
-                else:
-                    if playerNumber == 1:
-                        opponent = self.game.getPlayer(0)
-                    else:
-                        opponent = self.game.getPlayer(1)
-                connection.sendall(pickle.dumps([self.game.getPlayer(playerNumber) , opponent, self.game.getBall()]))
+
+                connection.sendall(self.sendGameData(playerNumber))
             except:
                 break
         

@@ -1,6 +1,7 @@
 import pygame
 
 from src.model.observer.Observer import Observer
+from src.utils.PathManager import PathManager
 from src.view.views.Drawable import Drawable
 
 class PlayerView(Observer, Drawable):
@@ -8,6 +9,9 @@ class PlayerView(Observer, Drawable):
         self.playerController = controller
         self.position = player.getPosition()
         self.size = player.getSize()
+        self.moveSound = pygame.mixer.Sound(PathManager.loadSound("player-move"))
+
+        self.moveSound.set_volume(0.1)
 
     def draw(self, screen):
         rect = pygame.Rect(self.position.getX(), self.position.getY(), self.size.getWidth(), self.size.getHeight())
@@ -16,3 +20,5 @@ class PlayerView(Observer, Drawable):
     def update(self, object):
         self.position = object.getPosition()
         self.size = object.getSize()
+        self.moveSound.play()
+
