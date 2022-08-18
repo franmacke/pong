@@ -1,8 +1,8 @@
 import pygame, os
 from pathlib import Path
 
-
 from .view.scenes.GameScene import GameScene
+from src.view.scenes.MultiplayerScene import MultiplayerScene
 from src.view.scenes.MainMenuScene import MainMenuScene
 from src.view.scenes.PauseScene import PauseScene
 from src.view.scenes.OptionsScene import OptionScene
@@ -63,6 +63,9 @@ class Application:
 
     def play(self):
         self.changeScene(self.saveScene)
+
+    def playMultiplayer(self):
+        self.changeScene(MultiplayerScene(self))
 
     def quit(self):
         self.running = False

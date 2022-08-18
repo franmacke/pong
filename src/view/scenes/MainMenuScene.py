@@ -20,11 +20,12 @@ class MainMenuScene(Scene):
         title = font.render("P O N G", True, (255,255,255))
 
         playButton = thorpy.make_button("Jugar", func=lambda: self.startNewGame())
+        multiButton = thorpy.make_button("Multijugador", func=lambda: self.startMultiGame())
         quitButton = thorpy.make_button("Salir", func=thorpy.functions.quit_func)
 
         background = thorpy.Background(
             color=(0,0,0),
-            elements=[playButton, quitButton]
+            elements=[playButton, multiButton, quitButton]
         )
 
         thorpy.store(background)
@@ -39,5 +40,8 @@ class MainMenuScene(Scene):
         self.menu.set_leave()
         self.app.startNewGame()
 
+    def startMultiGame(self):
+        self.menu.set_leave()
+        self.app.playMultiplayer()
 
     

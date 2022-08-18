@@ -15,14 +15,14 @@ class Player(Positionable, Observable, Sizable, Collider):
         self.observers = []
         self.size = Size(10, 100)
         self.score = 1
-        self.collider = BoxCollider(self)
+        self.collider = Collider(self)
 
     def outOfBounds(self):
         pass
 
     def reset(self):
         self.position = Position(0,0)
-        self.collider = BoxCollider(self)
+        self.collider = Collider(self)
 
     def horizontalBounce(self):
         pass
@@ -31,7 +31,7 @@ class Player(Positionable, Observable, Sizable, Collider):
         pass
 
     def onCollision(self, objectCollided):
-        self.collider.onBoxCollision(objectCollided)
+        self.collider.reactToCollision(objectCollided)
 
     def scoreGoal(self):
         return self.score
