@@ -1,4 +1,6 @@
+from typing import Collection
 from src.model.collider.BoxCollider import BoxCollider
+from ..collider.Collider import Collider
 from src.model.sizable.Sizable import Sizable
 from src.model.observer.Observable import Observable
 from src.model.position.Position import Position
@@ -9,15 +11,15 @@ from src.model.vector.Vector import Vector2
 class Ball(Positionable, Observable, Sizable):
     def __init__(self) -> None:
         self.position = Position(0,0)
+        self.speed = 10
         self.direction = self.startWithRandomDirection()
         self.observers = []
-        self.speed = 10
         self.size = Size(10, 10)
-        self.collider = BoxCollider(self)
+        self.collider = Collider(self)
 
     def reset(self):
         self.direction = self.startWithRandomDirection()
-        self.collider = BoxCollider(self)
+        self.collider = Collider(self)
         self.position = Position(0,0)
 
     def verticalBounce(self):

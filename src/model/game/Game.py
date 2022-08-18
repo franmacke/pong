@@ -47,6 +47,15 @@ class Game:
         score = Score(self.players)
         self.addScoreManager(score)
 
+    def initizalizeMultiplayer(self, playerOne, playerTwo, ball):
+
+        self.addPlayer(playerOne)
+        self.addPlayer(playerTwo)
+        self.addBall(ball)
+
+        score = Score(self.players)
+        self.addScoreManager(score)
+
     def update(self):
         if (not self.detectWinner()):
             self.detectCollisions()
