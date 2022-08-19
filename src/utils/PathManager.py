@@ -1,23 +1,24 @@
 from pathlib import Path
-import os
+import os, sys
 
 
 HOME_DIR = os.getcwd()
 
-class PathManager:
+
+class PathManager:  
 
     @staticmethod
     def loadFont(font):
-        return Path(HOME_DIR, "assets/fonts/", f"{font}.ttf")
+        return os.path.join(os.path.abspath('.'), f"assets/fonts/{font}.ttf")
 
     @staticmethod
     def loadSound(file):
-        return Path(HOME_DIR, "assets/sounds/", f"{file}.mp3")
+        return os.path.join(os.path.abspath('.'), f"assets/sounds/{file}.mp3")
         
     @staticmethod
     def loadBackground(file):
-        return Path(HOME_DIR, "assets/background/", f"{file}.jpg")
+        return os.path.join(os.path.abspath('.'), f"assets/background/{file}.jpg")
 
     @staticmethod
     def loadButton(file):
-        return Path(HOME_DIR, "assets/buttons/", f"{file}.png")
+        return os.path.join(os.path.abspath('.'), f"assets/buttons/{file}.png")

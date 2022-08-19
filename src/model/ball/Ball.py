@@ -37,6 +37,7 @@ class Ball(Positionable, Observable, Sizable):
         return self.collider.isColliding()
 
     def move(self):
+        self.speed = self.speed * 1.0001
         self.position.move(self.direction.multiply(self.speed))
         self.notifyObservers()
 
