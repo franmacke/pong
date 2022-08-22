@@ -37,8 +37,5 @@ jobs:
         python -m unittest discover tests
     - name: pyinstaller Script.spec
       run: |
-<<<<<<< HEAD
         pyinstaller Script.spec
-=======
-        pyinstaller Script.spec
->>>>>>> 12c30c0652516b0155d5d267e283ebbc93faf063
+
