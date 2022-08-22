@@ -1,5 +1,6 @@
-import pygame, os
-from pathlib import Path
+import pygame
+
+from src.settings.Settings import Settings
 
 from .view.scenes.GameScene import GameScene
 from src.view.scenes.MultiplayerScene import MultiplayerScene
@@ -12,20 +13,27 @@ class Application:
         self.running = True
         self.scene = None
         self.saveScene = None
-        self.display = pygame.display.set_mode((600,600))
+        self.display = None
         self.clock = pygame.time.Clock()
+        self.mainMenu = None
+        self.settings = Settings()
+        self.mixers = []
 
     def initalize(self):
+
         pygame.init()
+        pygame.display.set_caption('P O N G')
         pygame.font.init()
         pygame.mixer.init()
+
+        self.display = pygame.display.set_mode((600,600))
 
     def run(self):
         self.initalize()
 
-        mainMenu = MainMenuScene(self)
+        self.mainMenu = MainMenuScene(self)
 
-        self.changeScene(mainMenu)
+        self.changeScene(self.mainMenu)
 
         while self.running:
             self.clock.tick(60)
@@ -62,11 +70,20 @@ class Application:
     def loadSavedScene(self):
         self.scene = self.saveScene
 
+    def goToMainMenu(self):
+        self.changeScene(self.mainMenu)
+
     def play(self):
         self.changeScene(self.saveScene)
 
     def playMultiplayer(self):
         self.changeScene(MultiplayerScene(self))
+
+    def getSetting(self, settingName):
+        return self.settings.getSetting(settingName)
+
+    def setSetting(self, key, value):
+        self.settings.setSetting(key, value)
 
     def quit(self):
         self.running = False
@@ -79,3 +96,6 @@ class Application:
 
     def update(self):
         pygame.display.update()
+
+    def addMixer(self, mixer):
+        self.mixers.append(mixer)

@@ -1,6 +1,8 @@
 import pygame
 from src.view.components.Button import Button
 
+from src.utils.Color import Color
+
 from src.view.scenes.Scene import Scene
 from src.utils.PathManager import PathManager
 
@@ -10,36 +12,38 @@ class MainMenuScene(Scene):
         self.mixer = pygame.mixer.Sound(PathManager.loadSound("intro"))
         self.font = pygame.font.Font(PathManager.loadFont("outline"), 50)
         self.buttons = []
-
         
-        self.mixer.play()
-        self.mixer.set_volume(0.2)
         self.setup()
 
     def setup(self):
-        playButton = Button("play", self.startNewGame)
+        self.loadMusic()
+
+        playButton = Button("Play", self.startNewGame, (111, 232, 144))
         playButton.setPosition((230, 300))
 
-        muliplayerButton = Button("multi", self.startMultiGame)
-        muliplayerButton.setPosition((230, 350))
+        muliplayerButton = Button("Multi", self.startMultiGame, (181, 102, 227))
+        muliplayerButton.setPosition((230, 360))
 
-        optionButton = Button("option", self.app.options)
-        optionButton.setPosition((230, 400))
+        optionButton = Button("Settings", self.app.options, (43, 138, 240))
+        optionButton.setPosition((230, 420))
 
-        quitButton = Button("quit", self.quit)
-        quitButton.setPosition((230, 450))
+        quitButton = Button("Exit", self.quit, (242, 73, 115))
+        quitButton.setPosition((230, 480))
 
         self.buttons.append(playButton)
         self.buttons.append(muliplayerButton)
         self.buttons.append(optionButton)
         self.buttons.append(quitButton)
 
+    def loadMusic(self):
+        self.mixer.play()
+        self.mixer.set_volume(self.app.getSetting('volume'))
 
     def update(self):
         self.app.update()
 
     def render(self, screen):
-        self.app.fill((0,0,0))
+        self.app.fill(Color.COLOR_BACKGROUND)
 
         title = self.font.render("P O N G !", True, (255,255,255))
         

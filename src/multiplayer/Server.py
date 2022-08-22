@@ -9,7 +9,9 @@ from src.model.game.Game import Game
 
 import pygame
 
+
 MAX_BYTES = 2048
+MATCH_END = -1
 
 class Server:
     def __init__(self) -> None:
@@ -94,3 +96,5 @@ class Server:
         while self.connected == 2 or self.game.detectWinner():
             self.clock.tick(60)
             self.update()
+
+        return MATCH_END

@@ -4,6 +4,7 @@ from src.controller.KeyboardController import KeyboardController
 from src.controller.SecondPlayerController import SecondPlayerController
 from src.controller.PlayerController import PlayerController
 from src.model.game.Game import Game
+from src.utils.Color import Color
 from src.utils.PathManager import PathManager
 from src.view.scenes.GoalScene import GoalScene
 from src.view.scenes.WinnerScene import WinnerScene
@@ -23,15 +24,16 @@ class GameScene(Scene):
         self.game = None
 
         self.gameSound = pygame.mixer.Sound(PathManager.loadSound("match"))
-        # self.gameBackground = self.loadBackground()
    
-        self.gameSound.play()
-        self.gameSound.set_volume(0.2)
         self.setup()
 
     def loadBackground(self):
         img = pygame.image.load(PathManager.loadBackground("match-background"))
         return pygame.transform.scale(img, (600, 600))
+
+    def loadMusic(self):
+        self.gameSound.play()
+        self.gameSound.set_volume(self.app.getSetting("volume"))
 
     def processInput(self, events, keyPressed):
         keyboardController = KeyboardController(self.app)
@@ -50,7 +52,7 @@ class GameScene(Scene):
         if not self.game.detectWinner():
             if not self.game.detectScore():
                 # screen.blit(self.gameBackground, (0,0))
-                self.app.fill((0,0,0))
+                self.app.fill(Color.COLOR_BACKGROUND)
 
                 for player in self.playersViews:
                     player.draw(screen)
@@ -65,6 +67,7 @@ class GameScene(Scene):
     def setup(self):
         self.game = Game()
         self.game.initialize()
+        self.loadMusic()
 
         playerOne = self.game.getPlayer(0)
         playerTwo = self.game.getPlayer(1)

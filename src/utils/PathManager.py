@@ -22,3 +22,7 @@ class PathManager:
     @staticmethod
     def loadButton(file):
         return os.path.join(os.path.abspath('.'), f"assets/buttons/{file}.png")
+
+    @staticmethod
+    def loadSettings():
+        return os.path.join(os.path.abspath('.'), "src/settings/settings.txt")

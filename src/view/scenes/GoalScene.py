@@ -1,5 +1,6 @@
 
 import pygame
+from src.utils.Color import Color
 from src.utils.PathManager import PathManager
 from src.view.scenes.Scene import Scene
 
@@ -11,16 +12,19 @@ class GoalScene(Scene):
         self.reachedTop = False
         self.goalSound = pygame.mixer.Sound(PathManager.loadSound("goal"))
         self.cheeringSound = pygame.mixer.Sound(PathManager.loadSound("cheering"))
-        self.goalSound.play()
-        self.goalSound.set_volume(0.2)
-        self.cheeringSound.play()
-        self.cheeringSound.set_volume(0.2)
+        self.loadMusic()
 
     def update(self):
         self.app.update()
 
+    def loadMusic(self):
+        self.goalSound.play()
+        self.goalSound.set_volume(self.app.getSetting("volume"))
+        self.cheeringSound.play()
+        self.cheeringSound.set_volume(self.app.getSetting("volume"))
+
     def render(self, screen):
-        self.app.fill((0,0,0))
+        self.app.fill(Color.COLOR_BACKGROUND)
         font = pygame.font.Font(PathManager.loadFont("outline"), 30)
 
         text = font.render("G O A L !", False, (255,255,255))

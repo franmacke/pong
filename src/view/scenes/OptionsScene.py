@@ -1,5 +1,10 @@
-import thorpy
+import pygame
+from src.utils.Color import Color
+from src.utils.PathManager import PathManager
+from src.view.components.Button import Button
+from src.view.components.Slider import Slider
 from src.view.scenes.PauseScene import PauseScene
+
 
 from src.view.scenes.Scene import Scene
 
@@ -7,31 +12,38 @@ class OptionScene(Scene):
     def __init__(self, app) -> None:
         super().__init__(app)
         self.menu = None
+        self.inputs = []
+        self.font = pygame.font.Font(PathManager.loadFont("outline"), 15)
+        
+        self.setup()
+
+    def setup(self):
+        musicSlider = Slider("Volume", self.app.setSetting)
+        musicSlider.setPosition((230, 200))
+
+        goBackButton = Button("Back", self.goBack, (52, 235, 219))
+        goBackButton.setPosition((230, 260))
+
+        self.inputs.extend([musicSlider, goBackButton])
 
     def update(self):
-        pass
+        self.app.update()
 
     def render(self, screen):
-        self.app.fill((0,0,0))
+        self.app.fill(Color.COLOR_BACKGROUND)
 
-        
-        musicSlider = thorpy.SliderX(100, limvals=(0, 1), text="Music", initial_value=0.5, type_=float)
+        for input in self.inputs:
+            input.draw(screen)
 
-        backButton = thorpy.make_button("Volver", func=lambda: self.goBack())
-
-        background = thorpy.Background(
-            color=(0,0,0),
-            elements=[musicSlider, backButton]
-        )
-
-        thorpy.store(background)
-
-        self.menu = thorpy.Menu(background)
-        self.menu.play()
 
     def processInput(self, events, keyPressed):
-        pass
+        for event in events:
+            if event.type == pygame.QUIT:
+                self.app.quit()
+        
+        for input in self.inputs:
+            input.listen(events, keyPressed)
+
 
     def goBack(self):
-        self.menu.set_leave()
         self.goToPrevScene()

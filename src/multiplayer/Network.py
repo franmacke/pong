@@ -16,7 +16,7 @@ class Network:
             self.client.connect(self.addr)
             return pickle.loads(self.client.recv(MAX_BYTES))
         except:
-            pass
+            return False
 
     def getConnection(self):
         return self.connection
