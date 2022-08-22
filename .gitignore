@@ -6,8 +6,4 @@ pong.egg-info/
 
 __pycache__/
 
-build/
-
-dist/
-
 *.bat
