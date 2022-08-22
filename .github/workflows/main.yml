@@ -38,4 +38,3 @@ jobs:
     - name: pyinstaller Script.spec
       run: |
         pyinstaller Script.spec
-You have unread notifications
