@@ -10,6 +10,4 @@ build/
 
 dist/
 
-*.spec
-
 *.bat
