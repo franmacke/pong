@@ -8,6 +8,7 @@ from src.view.scenes.MainMenuScene import MainMenuScene
 from src.view.scenes.PauseScene import PauseScene
 from src.view.scenes.OptionsScene import OptionScene
 
+
 class Application:
     def __init__(self) -> None:
         self.running = True
