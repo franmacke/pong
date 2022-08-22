@@ -7,8 +7,8 @@ from os.path import isfile, join
 block_cipher = None
 
 a = Analysis(
-    ['src\\Script.py'],
-    pathex=['C:\\Users\\franc\\Documents\\GitHub\\pong\\src'],
+    ['src/Script.py'],
+    pathex=['C:/Users/franc/Documents/GitHub/pong/src'],
     binaries=[],
     datas=[],
     hiddenimports=[],
@@ -22,17 +22,17 @@ a = Analysis(
     noarchive=False,
 )
 
-a.datas += [('outline.ttf','assets\\fonts\\outline.ttf', "DATA")]
-a.datas += [('outline.ttf','assets\\background\\match-background.jpg', "DATA")]
-a.datas += [('quit-pressed.png','assets\\buttons\\container.png', "DATA")]
-a.datas += [('ball-hit.mp3','assets\\sounds\\ball-hit.mp3', "DATA")]
-a.datas += [('cheering.mp3','assets\\sounds\\cheering.mp3', "DATA")]
-a.datas += [('goal.mp3','assets\\sounds\\goal.mp3', "DATA")]
-a.datas += [('hover.mp3','assets\\sounds\\hover.mp3', "DATA")]
-a.datas += [('intro.mp3','assets\\sounds\\intro.mp3', "DATA")]
-a.datas += [('match.mp3','assets\\sounds\\match.mp3', "DATA")]
-a.datas += [('player-move.mp3','assets\\sounds\\player-move.mp3', "DATA")]
-a.datas += [('settings.txt','src\\settings\\settings.txt', "DATA")]
+a.datas += [('outline.ttf','assets/fonts/outline.ttf', "DATA")]
+a.datas += [('outline.ttf','assets/background/match-background.jpg', "DATA")]
+a.datas += [('quit-pressed.png','assets/buttons/container.png', "DATA")]
+a.datas += [('ball-hit.mp3','assets/sounds/ball-hit.mp3', "DATA")]
+a.datas += [('cheering.mp3','assets/sounds/cheering.mp3', "DATA")]
+a.datas += [('goal.mp3','assets/sounds/goal.mp3', "DATA")]
+a.datas += [('hover.mp3','assets/sounds/hover.mp3', "DATA")]
+a.datas += [('intro.mp3','assets/sounds/intro.mp3', "DATA")]
+a.datas += [('match.mp3','assets/sounds/match.mp3', "DATA")]
+a.datas += [('player-move.mp3','assets/sounds/player-move.mp3', "DATA")]
+a.datas += [('settings.txt','src/settings/settings.txt', "DATA")]
 
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
