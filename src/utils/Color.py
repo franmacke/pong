@@ -1,7 +1,0 @@
-
-
-class Color:
-    COLOR_BACKGROUND = (0,0,70)
-    COLOR_GREEN = (111, 232, 144)
-    COLOR_BLUE = (43, 138, 240)
-    COLOR_RED = (242, 73, 115)
