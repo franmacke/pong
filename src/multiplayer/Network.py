@@ -3,10 +3,13 @@ import socket
 
 MAX_BYTES = 2048
 
+hostname = socket.gethostname()
+local_ip = socket.gethostbyname(hostname)
+
 class Network:
     def __init__(self) -> None:
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server = "192.168.0.8"
+        self.server = local_ip
         self.port = 5555
         self.addr = (self.server, self.port)
         self.connection = self.connect()
